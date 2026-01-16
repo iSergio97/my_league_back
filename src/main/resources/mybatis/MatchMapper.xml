@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sergiogd.my_league.repository.MatchRepository">
+    <resultMap id="matchMap" type="com.sergiogd.my_league.model.Match">
+        <id column="ID" property="id" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="MATCH_DAY" property="matchDay" />
+        <result column="LOCAL_TEAM" property="localTeam" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="AWAY_TEAM" property="awayTeam" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="SEASON_ID" property="seasonId" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="MATCH_DATE" property="matchDate" />
+        <result column="STATUS" property="status" />
+        <result column="LOCAL_GOL" property="localGol" />
+        <result column="AWAY_GOL" property="awayGol" />
+    </resultMap>
+
+    <select id="getAllMatches" resultMap="matchMap">
+        SELECT * FROM MATCH
+    </select>
+</mapper>

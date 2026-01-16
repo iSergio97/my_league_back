@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sergiogd.my_league.repository.TeamRepository">
+    <resultMap id="teamMap" type="com.sergiogd.my_league.model.Team">
+        <id column="ID" property="id" jdbcType="OTHER" javaType="java.util.UUID"/>
+        <result column="LEAGUE_ID" property="leagueId" jdbcType="OTHER" javaType="java.util.UUID" />
+    </resultMap>
+
+    <select id="getAllTeams" resultMap="teamMap">
+        SELECT * FROM TEAM
+    </select>
+</mapper>

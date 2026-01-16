@@ -1,0 +1,36 @@
+package com.sergiogd.my_league.typehandler;
+
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
+
+import java.sql.*;
+import java.util.UUID;
+
+public class UUIDTypeHandler extends BaseTypeHandler<UUID> {
+
+    @Override
+    public void setNonNullParameter(PreparedStatement ps, int i, UUID parameter, JdbcType jdbcType) throws SQLException {
+        ps.setObject(i, parameter, Types.OTHER); // PostgreSQL necesita Types.OTHER para UUID
+    }
+
+    @Override
+    public UUID getNullableResult(ResultSet rs, String columnName) throws SQLException {
+        Object obj = rs.getObject(columnName);
+        if (obj == null) return null;
+        return obj instanceof UUID ? (UUID) obj : UUID.fromString(obj.toString());
+    }
+
+    @Override
+    public UUID getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+        Object obj = rs.getObject(columnIndex);
+        if (obj == null) return null;
+        return obj instanceof UUID ? (UUID) obj : UUID.fromString(obj.toString());
+    }
+
+    @Override
+    public UUID getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+        Object obj = cs.getObject(columnIndex);
+        if (obj == null) return null;
+        return obj instanceof UUID ? (UUID) obj : UUID.fromString(obj.toString());
+    }
+}

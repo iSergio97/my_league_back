@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sergiogd.my_league.repository.SeasonTeamRepository">
+    <resultMap id="seasonTeamMap" type="com.sergiogd.my_league.model.SeasonTeam">
+        <id column="ID" property="id" jdbcType="OTHER" javaType="java.util.UUID"/>
+        <result column="SEASON_ID" property="seasonId" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="TEAM_ID" property="teamId" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="IS_PROMOTED" property="isPromoted" />
+        <result column="IS_DEFENDING_CHAMPION" property="isDefendingChampion" />
+    </resultMap>
+
+    <select id="getAllSeasonTeams" resultMap="seasonTeamMap">
+        SELECT * FROM SEASON_TEAM
+    </select>
+</mapper>
