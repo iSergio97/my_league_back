@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/standings")
+@CrossOrigin
 @RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 public class StandingRest {
 

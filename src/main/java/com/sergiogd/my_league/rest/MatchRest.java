@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/matches")
 @RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
+@CrossOrigin
 public class MatchRest {
 
     private final MatchService matchService;
@@ -21,7 +22,7 @@ public class MatchRest {
         return this.matchService.getAllMatches();
     }
 
-    @GetMapping("getMatchs/{seasonId}")
+    @GetMapping("/getMatches/{seasonId}")
     public List<MatchDTO> getMatchsBySeasonIDAndMatchDay(@PathVariable("seasonId") String seasonId, @RequestParam("matchDay") Integer matchDay) {
         return this.matchService.getMatchsBySeasonIDAndMatchDay(seasonId, matchDay);
     }
