@@ -15,7 +15,43 @@
         <result column="AWAY_GOL" property="awayGol" />
     </resultMap>
 
+    <resultMap id="matchDTOMap" type="com.sergiogd.my_league.dto.MatchDTO">
+        <id column="ID" property="matchId" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="SEASON_ID" property="seasonId" jdbcType="OTHER" javaType="java.util.UUID" />
+        <result column="MATCH_DAY" property="matchDay" />
+        <result column="LOCAL_TEAM" property="localTeam" />
+        <result column="AWAY_TEAM" property="awayTeam"  />
+        <result column="MATCH_DATE" property="matchDate" />
+        <result column="STATUS" property="status" />
+        <result column="LOCAL_GOL" property="localGol" />
+        <result column="AWAY_GOL" property="awayGol" />
+    </resultMap>
+
     <select id="getAllMatches" resultMap="matchMap">
         SELECT * FROM MATCH
+    </select>
+
+    <select id="getMatchsBySeasonIDAndMatchDay" resultMap="matchDTOMap">
+        SELECT
+            M.ID AS ID,
+            S.ID AS SEASON_ID,
+            M.MATCH_DAY AS MATCH_DAY,
+            LOCAL_TEAM.NOMBRE AS LOCAL_TEAM,
+            AWAY_TEAM.NOMBRE AS AWAY_TEAM,
+            M.LOCAL_GOL AS LOCAL_GOL,
+            M.MATCH_DATE AS MATCH_DATE,
+            M.AWAY_GOL AS AWAY_GOL,
+            M.STATUS AS STATUS
+        FROM MATCH M
+            INNER JOIN SEASON S ON
+            M.SEASON_ID = S.ID
+            INNER JOIN TEAM LOCAL_TEAM ON
+            LOCAL_TEAM.ID = M.LOCAL_TEAM
+            INNER JOIN TEAM AWAY_TEAM ON
+            AWAY_TEAM.ID = M.AWAY_TEAM
+        WHERE
+            SEASON_ID = #{seasonId} AND MATCH_DAY = #{matchDay}
+        ORDER BY
+            M.MATCH_DAY
     </select>
 </mapper>

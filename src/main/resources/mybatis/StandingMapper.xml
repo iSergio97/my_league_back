@@ -13,7 +13,32 @@
         <result column="RANKING" property="ranking" />
     </resultMap>
 
+    <resultMap id="standingResultMap" type="com.sergiogd.my_league.dto.StandingDTO">
+        <id     property="ranking"        column="RANKING"/>
+        <result property="teamName"       column="TEAM_NAME"/>
+        <result property="journeyNumber"  column="JOURNEY_NUMBER"/>
+        <result property="points"         column="POINTS"/>
+        <result property="goalsFor"       column="GOALS_FOR"/>
+        <result property="goalsAgainst"   column="GOALS_AGAINST"/>
+    </resultMap>
+
+
     <select id="getAllStandings" resultMap="standingMap">
         SELECT * FROM STANDING
+    </select>
+
+    <select id="getStandingsByJourneyAndSeasonId" resultMap="standingResultMap">
+        SELECT
+        S.ranking        AS RANKING,
+        T.nombre         AS TEAM_NAME,
+        S.journey_number AS JOURNEY_NUMBER,
+        S.points         AS POINTS,
+        S.goals_for      AS GOALS_FOR,
+        S.goals_against  AS GOALS_AGAINST
+        FROM STANDING S
+        JOIN TEAM T ON S.team_id = T.id
+        WHERE S.journey_number = #{journey}
+        AND S.season_id = #{seasonId}
+        ORDER BY S.ranking
     </select>
 </mapper>

@@ -1,12 +1,10 @@
 package com.sergiogd.my_league.rest;
 
-import com.sergiogd.my_league.model.Match;
-import com.sergiogd.my_league.service.MatchService;
+import com.sergiogd.my_league.dto.StandingDTO;
+import com.sergiogd.my_league.service.StandingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,10 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 public class StandingRest {
 
-    private final MatchService matchService;
+    private final StandingService standingService;
 
-    @GetMapping("/all")
-    public List<Match> getAll() {
-        return this.matchService.getAllMatches();
+    @GetMapping("/getStandings/{seasonId}")
+    public List<StandingDTO> getStandingsByJourneyAndSeasonId(@PathVariable("seasonId") String seasonId, @RequestParam("journey") Integer journey) {
+        return this.standingService.getStandingsByJourneyAndSeasonId(seasonId, journey);
     }
 }

@@ -1,5 +1,6 @@
 package com.sergiogd.my_league.service.impl;
 
+import com.sergiogd.my_league.dto.MatchDTO;
 import com.sergiogd.my_league.model.Match;
 import com.sergiogd.my_league.repository.MatchRepository;
 import com.sergiogd.my_league.service.MatchService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
@@ -18,5 +20,11 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public List<Match> getAllMatches() {
         return this.matchRepository.getAllMatches();
+    }
+
+    @Override
+    public List<MatchDTO> getMatchsBySeasonIDAndMatchDay(String seasonId, Integer matchDay) {
+        UUID uuidSeasonID = UUID.fromString(seasonId);
+        return this.matchRepository.getMatchsBySeasonIDAndMatchDay(uuidSeasonID, matchDay);
     }
 }
