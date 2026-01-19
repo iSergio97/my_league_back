@@ -9,7 +9,16 @@
         <result column="NAME" property="name" />
     </resultMap>
 
+    <resultMap id="seasonDTOMap" type="com.sergiogd.my_league.dto.SeasonDTO">
+        <id column="ID" property="seasonId" jdbcType="OTHER" javaType="java.util.UUID"/>
+        <result column="NAME" property="name" />
+    </resultMap>
+
     <select id="getAllSeasons" resultMap="seasonMap">
         SELECT * FROM SEASON
+    </select>
+
+    <select id="getSeasonsByLeagueId" resultMap="seasonDTOMap">
+        SELECT ID, NAME FROM SEASON WHERE LEAGUE_ID = #{leagueId}
     </select>
 </mapper>

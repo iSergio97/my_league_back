@@ -1,12 +1,12 @@
 package com.sergiogd.my_league.rest;
 
-import com.sergiogd.my_league.model.League;
+import com.sergiogd.my_league.dto.SeasonDTO;
 import com.sergiogd.my_league.model.Season;
-import com.sergiogd.my_league.service.LeagueService;
 import com.sergiogd.my_league.service.SeasonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +22,10 @@ public class SeasonRest {
     @GetMapping("/all")
     public List<Season> getAllSeasons() {
         return this.seasonService.getAllSeasons();
+    }
+
+    @GetMapping("/{leagueId}")
+    public List<SeasonDTO> getSeasonByLeagueID(@PathVariable("leagueId") String leagueId) {
+        return this.seasonService.getSeasonsByLeagueId(leagueId);
     }
 }
