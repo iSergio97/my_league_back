@@ -7,6 +7,7 @@
         <id column="SEASON_ID" property="seasonId" jdbcType="OTHER" javaType="java.util.UUID"/>
         <id column="TEAM_ID" property="teamId" jdbcType="OTHER" javaType="java.util.UUID"/>
         <id column="JOURNEY_NUMBER" property="journeyNumber" jdbcType="OTHER" javaType="java.util.UUID"/>
+        <result column="MATCHES_PLAYED" property="matchesPlayed" />
         <result column="POINTS" property="points" />
         <result column="GOALS_FOR" property="goalsFor" />
         <result column="GOALS_AGAINST" property="goalsAgainst" />
@@ -16,7 +17,7 @@
     <resultMap id="standingResultMap" type="com.sergiogd.my_league.dto.StandingDTO">
         <id     property="ranking"        column="RANKING"/>
         <result property="teamName"       column="TEAM_NAME"/>
-        <result property="journeyNumber"  column="JOURNEY_NUMBER"/>
+        <result property="matchesPlayed"  column="MATCHES_PLAYED"/>
         <result property="points"         column="POINTS"/>
         <result property="goalsFor"       column="GOALS_FOR"/>
         <result property="goalsAgainst"   column="GOALS_AGAINST"/>
@@ -31,7 +32,7 @@
         SELECT
         S.ranking        AS RANKING,
         T.nombre         AS TEAM_NAME,
-        S.journey_number AS JOURNEY_NUMBER,
+        S.MATCHES_PLAYED AS MATCHES_PLAYED,
         S.points         AS POINTS,
         S.goals_for      AS GOALS_FOR,
         S.goals_against  AS GOALS_AGAINST

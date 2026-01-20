@@ -11,6 +11,7 @@ public class Standing {
     private Integer journeyNumber;
 
     // Estadísticas
+    private Integer matchesPlayed;
     private Integer points;
     private Integer goalsFor;
     private Integer goalsAgainst;

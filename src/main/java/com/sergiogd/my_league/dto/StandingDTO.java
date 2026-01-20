@@ -7,7 +7,7 @@ public class StandingDTO {
 
     private Integer ranking;
     private String teamName;
-    private Integer journeyNumber;
+    private Integer matchesPlayed;
     private Integer points;
     private Integer goalsFor;
     private Integer goalsAgainst;

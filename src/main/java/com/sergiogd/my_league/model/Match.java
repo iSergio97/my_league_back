@@ -1,8 +1,7 @@
 package com.sergiogd.my_league.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
-import java.time.LocalDate;
-import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
@@ -12,7 +11,7 @@ public class Match {
     private UUID localTeam;
     private UUID awayTeam;
     private UUID seasonId;
-    private LocalDate matchDate;
+    private LocalDateTime matchDate;
     private String status;
     private Integer localGol; // Usamos Integer si prefieres, o BigDecimal según tu precisión
     private Integer awayGol;

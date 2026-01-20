@@ -52,6 +52,6 @@
         WHERE
             SEASON_ID = #{seasonId} AND MATCH_DAY = #{matchDay}
         ORDER BY
-            M.MATCH_DAY
+            M.MATCH_DATE
     </select>
 </mapper>
