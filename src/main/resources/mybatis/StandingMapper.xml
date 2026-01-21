@@ -39,7 +39,7 @@
         S.goals_for      AS GOALS_FOR,
         S.goals_against  AS GOALS_AGAINST,
         (
-        SELECT string_agg(result, '-' ORDER BY match_day DESC)
+        SELECT string_agg(result, '-' ORDER BY match_day ASC)
         FROM (
         SELECT
         m.match_day,
