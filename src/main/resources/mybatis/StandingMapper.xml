@@ -15,12 +15,14 @@
     </resultMap>
 
     <resultMap id="standingResultMap" type="com.sergiogd.my_league.dto.StandingDTO">
-        <id     property="ranking"        column="RANKING"/>
-        <result property="teamName"       column="TEAM_NAME"/>
-        <result property="matchesPlayed"  column="MATCHES_PLAYED"/>
-        <result property="points"         column="POINTS"/>
-        <result property="goalsFor"       column="GOALS_FOR"/>
-        <result property="goalsAgainst"   column="GOALS_AGAINST"/>
+        <id     property="ranking"         column="RANKING"/>
+        <result property="teamName"        column="TEAM_NAME"/>
+        <result property="matchesPlayed"   column="MATCHES_PLAYED"/>
+        <result property="points"          column="POINTS"/>
+        <result property="goalsFor"        column="GOALS_FOR"/>
+        <result property="goalsAgainst"    column="GOALS_AGAINST"/>
+        <result property="lastResults"     column="LAST_RESULTS" />
+        <result property="previousRanking" column="PREVIOUS" />
     </resultMap>
 
 
@@ -32,12 +34,33 @@
         SELECT
         S.ranking        AS RANKING,
         T.nombre         AS TEAM_NAME,
-        S.MATCHES_PLAYED AS MATCHES_PLAYED,
+        S.matches_played AS MATCHES_PLAYED,
         S.points         AS POINTS,
         S.goals_for      AS GOALS_FOR,
-        S.goals_against  AS GOALS_AGAINST
-        FROM STANDING S
-        JOIN TEAM T ON S.team_id = T.id
+        S.goals_against  AS GOALS_AGAINST,
+        (
+        SELECT string_agg(result, '-' ORDER BY match_day DESC)
+        FROM (
+        SELECT
+        m.match_day,
+        CASE
+        WHEN m.local_team = T.id AND m.local_gol > m.away_gol THEN 'W'
+        WHEN m.away_team = T.id AND m.away_gol > m.local_gol THEN 'W'
+        WHEN m.local_gol = m.away_gol THEN 'D'
+        ELSE 'L'
+        END AS result
+        FROM "match" m
+        WHERE (m.local_team = T.id OR m.away_team = T.id)
+        AND m.season_id = S.season_id
+        AND m.status = 'Finalizado'
+        AND m.MATCH_DAY <![CDATA[ <= ]]> S.journey_number
+        ORDER BY m.match_day DESC
+        LIMIT 5
+        ) last_matches
+        ) AS LAST_RESULTS,
+        (SELECT S1.RANKING FROM STANDING S1 WHERE S1.JOURNEY_NUMBER = #{journey}-1 AND S.season_id = #{seasonId} AND S1.TEAM_ID = T.ID) AS PREVIOUS
+        FROM standing S
+        JOIN team T ON S.team_id = T.id
         WHERE S.journey_number = #{journey}
         AND S.season_id = #{seasonId}
         ORDER BY S.ranking

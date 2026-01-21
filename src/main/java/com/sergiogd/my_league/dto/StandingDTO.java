@@ -11,4 +11,6 @@ public class StandingDTO {
     private Integer points;
     private Integer goalsFor;
     private Integer goalsAgainst;
+    private String lastResults;
+    private String previousRanking;
 }
